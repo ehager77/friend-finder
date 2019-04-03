@@ -1,5 +1,6 @@
 // npm packages
 var express = require('express');
+var bodyParser = require('body-parser');
 
 // creates the express app
 var app = express();
@@ -10,8 +11,8 @@ var PORT = process.env.PORT || 8080;
 
 // now begin actually using that app!
 // Sets up the Express app to handle data parsing
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // this allows access to all things in public
 app.use(express.static('app/public'));
 

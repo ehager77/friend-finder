@@ -20,12 +20,12 @@ module.exports = function (app) {
         // loop through all of the possible options
         var bestMatch = {
             name: "",
-            photo: "",
             difference: 1000 //initial value big for comparison
         };
 
         // To take the result of the user's survey POST and parse it
         var userData = req.body;
+        console.log('userInput = ' + userData);
         var userScores = userData.scores;
 
         // The variable used to calculate the difference b/n the user's socres and the scores of each user
