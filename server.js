@@ -17,7 +17,7 @@ app.use(express.static('app/public'));
 
 // create a map of how to handle the different routes!
 require("./app/routing/apiRoutes")(app);
-require("./app/routing/htmlRoutes")(app);
+require("./app/routing/htmlRoute")(app);
 
 
 // finally access the port
