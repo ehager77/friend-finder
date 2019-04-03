@@ -161,3 +161,7 @@ var bachelorettes = [
 		]
 	}
 ];
+
+
+// exports to let other files use this info
+module.exports = bachelorettes;
