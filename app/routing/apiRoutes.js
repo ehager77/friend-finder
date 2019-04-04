@@ -17,36 +17,33 @@ module.exports = function (app) {
     });
     // Handles when a user submits a form and thus submits data to the surver
     app.post('/api/bachelorettes', function (req, res) {
-        // loop through all of the possible options
-        var bestMatch = {
-            name: "",
-            difference: 1000 //initial value big for comparison
-        };
-
         // To take the result of the user's survey POST and parse it
         var userData = req.body;
-        console.log('userInput = ' + userData);
         var userScores = userData.scores;
-
-        // The variable used to calculate the difference b/n the user's socres and the scores of each user
-        var totalDifference = 0;
+        console.log('userInput = ' + JSON.stringify(userData.scores));
+        // loop through all of the possible options
+        var matchName = '';
+        var matchPhoto = '';
+        var totalDifference = 1000;
 
         //loop through the bachelorettes data array of objects to get each bachelorettes scores
         for (var i = 0; i < bachelorettes.length - 1; i++) {
             console.log("Bachelorette: " + JSON.stringify(bachelorettes[i].name));
-            totalDifference = 0;
-
+            var difference = 0;
             //loop through that bachelorettes score and the users score and calculate the absolute difference between the two and push that to the total difference variable set above
             for (var j = 0; j < 10; j++) {
                 // We calculate the difference between the scores and sum them into the totalDifference
-                totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(bachelorettes[i].scores[j]));
+                difference += Math.abs(parseInt(userScores[j]) - parseInt(bachelorettes[i].scores[j]));
                 // If the sum of differences is less then the differences of the current "best match"
-                if (totalDifference <= bestMatch.friendDifference) {
+                if (difference <= totalDifference) {
+                    console.log('Closest match found = ' + difference);
+                    console.log('Friend name = ' + bachelorettes[i].name);
+                    console.log('Friend image = ' + bachelorettes[i].photo);
 
-                    // Reset the bestMatch to be the new friend. 
-                    bestMatch.name = bachelorettes[i].name;
-                    bestMatch.photo = bachelorettes[i].photo;
-                    bestMatch.friendDifference = totalDifference;
+                    // Reset the bestMatch to be the new friend.
+                    totalDifference = difference;
+                    matchName = bachelorettes[i].name;
+                    matchPhoto= bachelorettes[i].photo;
                 }
             }
         }
@@ -55,6 +52,6 @@ module.exports = function (app) {
         bachelorettes.push(userData);
 
         //The res.json method will return a JSON data with the user's match which was looped through frieds data array. 
-        res.json(bestMatch);
+        res.json({ status: 'OK', matchName: matchName, matchPhoto: matchPhoto });
     });
 };

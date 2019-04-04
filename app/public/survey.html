@@ -209,8 +209,8 @@
                     </h2>
                 </div>
                 <div class="modal-body">
-                    <h2 id="match-name"></h2>
-                    <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                    <h2 id="match-name">Bri</h2>
+                    <img id="match-img" src="http://datg-cms-source-repo.s3-website-us-east-1.amazonaws.com/ABC/TheBachelor/BCH_S23_cast_BRIANNA/07b564b8-ce5f-4569-a706-5c25ff2b59ce.jpg" alt="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -244,9 +244,12 @@
                 $.post("/api/bachelorettes", userData, function (data) {
                     // Grab the result from the AJAX post so that the best match's name and photo are displayed.
                     $("#match-name").text(data.name);
-                    $("#match-img").attr("src", data.photo);
+                    $("#match-img").attr("url", data.photo);
                     // Show the modal with the best match
                     $("#results-modal").modal("toggle");
+                    console.log(JSON.stringify(data.name));
+                    console.log(JSON.stringify(data.photo));
+
                 });
         });
     </script>
